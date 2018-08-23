@@ -2,8 +2,12 @@
 #include"rule_variables.h"
 #include"stdafx.h"
 #include"objects.h"
+#include"main_menu.h"
+
 int main()
 {
+	init_game_menu();
+
 
 	while (window.isOpen())
 	{
@@ -25,7 +29,11 @@ int main()
         }
 		if (game_menu)
 		{
-
+			if (Keyboard::isKeyPressed(Keyboard::Space))
+			{
+				game = true;
+				game_menu = false;
+			}
 		}
 
 /////////////////////////////////////////////
@@ -43,7 +51,7 @@ int main()
 		}
 		if (game_menu)
 		{
-
+			draw_main_menu(window);
 		}
 		window.display();
 //////////////////////////////////////////////
