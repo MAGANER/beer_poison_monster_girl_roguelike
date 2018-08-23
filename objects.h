@@ -1,6 +1,8 @@
 #pragma once
 #include"stdafx.h"
-#include"GameObject.h"
+
+Font font;
+
 RenderWindow window(sf::VideoMode(800, 600), "WORLDOFFUCKINGSORROW");
 
 

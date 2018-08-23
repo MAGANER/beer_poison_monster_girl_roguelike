@@ -4,5 +4,3 @@
 
 bool hero_step = true;
 
-bool game_menu = true;
-bool game = false;
