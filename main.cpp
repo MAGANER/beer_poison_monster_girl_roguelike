@@ -5,21 +5,31 @@
 #include<iostream>
 
 using namespace std;
-Text hero;
 
+void generate_object();
+void check_hero_acrossed_border(string direction);
 void set_hero_on_map();
 void draw_action_line();
 void draw_vertical_borders();
 void draw_borders();
 int main()
 {
-	Vector2f hero_pos;
+	
+	action.setFont(font);
+	hero.setCharacterSize(36);
+
 
 	font.loadFromFile("9303.ttf");
 	hero.setFont(font);
 	hero.setCharacterSize(36);
 	hero.setString("@");
 
+	object.setFont(font);
+	object.setCharacterSize(36);
+	object.setString("?");
+	action_pos.x = 100;
+	action_pos.y = 100;
+	action.setPosition(action_pos);
 
 	set_hero_on_map();
 	while (window.isOpen())
@@ -36,11 +46,14 @@ int main()
 //////////////////////////////////////////////
 /////////////////////////////////////////////
 ////////KEY PRESSING/////////////////////////
-
-/////////////////////////////////////////////
-///////////ACTIONS///////////////////////////
-		if (hero_step)
+if (hero_step)
 		{
+	        if (Keyboard::isKeyPressed(Keyboard::F1))
+	        {
+				cout << "x:" << hero_pos.x<<endl;
+				cout << "y:" << hero_pos.y<<endl;
+
+			}
 			if (Keyboard::isKeyPressed(Keyboard::W))
 			{
 
@@ -108,6 +121,7 @@ int main()
 						hero.setPosition(hero_pos);
 						stop = true;
 					}
+					hero_step = false;
 				}
 			}
 			if (stop)
@@ -120,14 +134,37 @@ int main()
 
 			}
         }
-
+/////////////////////////////////////////////
+///////////ACTIONS///////////////////////////
+     check_hero_acrossed_border(direction);
+     if (!alive)
+     {
+		 action_pos.x = 100;
+		 action_pos.y = 100;
+		 action.setString("you fucking died...noob");
+		 action.setPosition(action_pos);
+		 show_hero = false;
+     }
+	 if (!hero_step)
+	 {
+		 generate_object();
+		 hero_step = true;
+	 }
 
 //////////////////////////////////////////////
 //////////////////////////////////////////////
 ////////////DRAWING///////////////////////////
 //////////////////////////////////////////////
 		window.clear();
-		window.draw(hero);
+		if (show_hero)
+		{
+			window.draw(hero);
+		}
+		if (show_object)
+		{
+			window.draw(object);
+		}
+		window.draw(action);
 		draw_vertical_borders();
 		draw_action_line();
 		draw_borders();
@@ -225,12 +262,127 @@ void draw_action_line()
 }
 void set_hero_on_map()
 {
-	srand(time(0));
+	srand(time( (unsigned int) 0));
 	int y = 140 + rand() % 520;
-	int x = 20 + rand() % 680;
+	int x = 20 + rand() % 620;
 
 	Vector2f hero_pos;
 	hero_pos.y =(float) y;
 	hero_pos.x = (float)x;
 	hero.setPosition(hero_pos);
+}
+void check_hero_acrossed_border(string direction)
+{
+	Vector2f hero_pos;
+	hero_pos = hero.getPosition();
+
+	if (direction == "up")
+	{
+		if (hero_pos.y < 140)
+		{
+			alive = false;
+	    }
+	}
+	if (direction == "down")
+	{
+		if (hero_pos.y > 580)
+		{
+			alive = false;
+		}
+	}
+	if (direction == "left")
+	{
+		if (hero_pos.x < 5)
+		{
+			alive = false;
+		}
+	}
+	if (direction == "right")
+	{
+		if (hero_pos.x >790)
+		{
+			alive = false;
+		}
+	}
+}
+void generate_object()
+{
+	srand(time((unsigned int)0));
+	object_type = 1 + rand() % 6;
+	int object_direction = 1 + rand() % 4;
+	//1 - left
+	//2 - right
+	//3 - up
+	//4 - down
+	if (object_direction == 1)
+	{
+		object_pos.x = hero_pos.x - 32;
+		object_pos.y = hero_pos.y;
+	}
+	if (object_direction == 2)
+	{
+		object_pos.x = hero_pos.x + 32;
+		object_pos.y = hero_pos.y;
+	}
+	if (object_direction == 3)
+	{
+		object_pos.y = hero_pos.y - 32;
+		object_pos.x = hero_pos.x;
+	}
+	if (object_direction == 4)
+	{
+		object_pos.y = hero_pos.y + 32;
+		object_pos.x = hero_pos.x;
+	}
+	object.setPosition(object_pos);
+	if (object_type == 1)
+	{
+		object_ = "beer";
+		show_object = true;
+		//it is a beer
+		action_pos.x = 100;
+		action_pos.y = 100;
+		action.setString("you see fucking something...");
+		action.setPosition(action_pos);
+	}
+	if (object_type == 2)
+	{
+		object_ = "poison";
+		show_object = true;
+		//it is a poison
+		action_pos.x = 100;
+		action_pos.y = 100;
+		action.setString("you see fucking something...");
+		action.setPosition(action_pos);
+	}
+	if (object_type == 3)
+	{
+		object_ = "monster";
+		show_object = true;
+		//it is a monster
+		action_pos.x = 100;
+		action_pos.y = 100;
+		action.setString("you see fucking something...");
+		action.setPosition(action_pos);
+	}
+	if (object_type == 4)
+	{
+		object_ = "girl";
+		show_object = true;
+		//it is a girl
+		action_pos.x = 100;
+		action_pos.y = 100;
+		action.setString("you see fucking something...");
+		action.setPosition(action_pos);
+	}
+	if (object_type == 5 || object_type == 6)
+	{
+		// it is nothing
+		action_pos.x = 100;
+		action_pos.y = 100;
+		action.setString("you see fucking nothing...");
+		action.setPosition(action_pos);
+		object_ = "nothing";
+		show_object = false;
+	}
 }
