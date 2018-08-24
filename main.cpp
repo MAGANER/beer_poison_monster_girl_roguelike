@@ -50,16 +50,17 @@ int main()
 		{
 			if (hero_step)
 			{
-
-				if (Keyboard::isKeyPressed(Keyboard::Num1))
+				if (object_type != 5 || object_type != 6)
 				{
-					hero_acts = 1;
+					if (Keyboard::isKeyPressed(Keyboard::Num1))
+					{
+						hero_acts = 1;
+					}
+					if (Keyboard::isKeyPressed(Keyboard::Num2))
+					{
+						hero_acts = 2;
+					}
 				}
-				if (Keyboard::isKeyPressed(Keyboard::Num2))
-				{
-					hero_acts = 2;
-				}
-
 				if (Keyboard::isKeyPressed(Keyboard::F1))
 				{
 					cout << "x:" << hero_pos.x << endl;
@@ -129,6 +130,11 @@ int main()
 								action.setPosition(action_pos);
 								show_object = false;
 							}
+							if (object_type == 5 || object_type == 6)
+							{
+								// do nothing
+							}
+							direction = "0";
 
 						}
 						if (hero_acts == 2)
@@ -165,7 +171,11 @@ int main()
 								action.setPosition(action_pos);
 								show_object = false;
 							}
-
+							if (object_type == 5 || object_type == 6)
+							{
+								// do nothing
+							}
+							direction = "0";
 						}
 						if (direction == "up")
 						{
@@ -217,6 +227,7 @@ int main()
 						}
 
 						direction = "0";
+						hero_acts = -1;
 					}
 				}
 				if (stop)
@@ -252,10 +263,7 @@ int main()
 		 generate_object();
 		 hero_step = true;
 	 }
-	 if (!alive)
-	 {
-		 cout << "dead"<<endl;
-	 }
+
 
 //////////////////////////////////////////////
 //////////////////////////////////////////////
@@ -369,8 +377,8 @@ void draw_action_line()
 void set_hero_on_map()
 {
 	srand(time( (unsigned int) 0));
-	int y = 140 + rand() % 520;
-	int x = 20 + rand() % 620;
+	int y = 140 + rand() % 480;
+	int x = 20 + rand() % 370;
 
 	Vector2f hero_pos;
 	hero_pos.y =(float) y;
@@ -387,13 +395,15 @@ void check_hero_acrossed_border(string direction)
 		if (hero_pos.y < 140)
 		{
 			alive = false;
+			show_object = false;
 	    }
 	}
 	if (direction == "down")
 	{
-		if (hero_pos.y > 580)
+		if (hero_pos.y >540)
 		{
 			alive = false;
+			show_object = false;
 		}
 	}
 	if (direction == "left")
@@ -401,6 +411,7 @@ void check_hero_acrossed_border(string direction)
 		if (hero_pos.x < 5)
 		{
 			alive = false;
+			show_object = false;
 		}
 	}
 	if (direction == "right")
@@ -408,6 +419,7 @@ void check_hero_acrossed_border(string direction)
 		if (hero_pos.x >790)
 		{
 			alive = false;
+			show_object = false;
 		}
 	}
 }
