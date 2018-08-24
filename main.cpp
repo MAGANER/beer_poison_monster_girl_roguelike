@@ -241,6 +241,19 @@ int main()
 				}
 			}
 		}
+		if (!alive)
+		{
+			if (Keyboard::isKeyPressed(Keyboard::Escape))
+			{
+				show_hero = true;
+				alive = true;
+				set_hero_on_map();
+				action_pos.x = 100;
+				action_pos.y = 100;
+				action.setString("you was born...again");
+				action.setPosition(action_pos);
+			}
+		}
 /////////////////////////////////////////////
 ///////////ACTIONS///////////////////////////
      check_hero_acrossed_border(direction);
