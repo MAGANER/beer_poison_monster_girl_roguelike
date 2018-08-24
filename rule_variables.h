@@ -10,3 +10,5 @@ bool show_hero = true;
 bool show_object = false;
 int  object_type;
 string object_; // beer, poison, girl, monster
+int hero_acts;
+bool hero_is_killed = false;

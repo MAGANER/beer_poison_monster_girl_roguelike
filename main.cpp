@@ -46,109 +46,215 @@ int main()
 //////////////////////////////////////////////
 /////////////////////////////////////////////
 ////////KEY PRESSING/////////////////////////
-if (hero_step)
+		if (alive)
 		{
-	        if (Keyboard::isKeyPressed(Keyboard::F1))
-	        {
-				cout << "x:" << hero_pos.x<<endl;
-				cout << "y:" << hero_pos.y<<endl;
-
-			}
-			if (Keyboard::isKeyPressed(Keyboard::W))
+			if (hero_step)
 			{
 
-				direction = "up";
-				
-			}
-			if (Keyboard::isKeyPressed(Keyboard::S))
-			{
-				direction = "down";
-				
-			}
-			if (Keyboard::isKeyPressed(Keyboard::A))
-			{
-				direction = "left";
-			}
-			if (Keyboard::isKeyPressed(Keyboard::D))
-			{
-				direction = "right";
-			}
-			if (!stop)
-			{
-				if (Keyboard::isKeyPressed(Keyboard::Space))
+				if (Keyboard::isKeyPressed(Keyboard::Num1))
 				{
-					if (direction == "up")
-					{
-						Vector2f heropos = hero.getPosition();
-
-						hero_pos.x = heropos.x;
-						hero_pos.y = heropos.y;
-
-						hero_pos.y -= 32;
-						hero.setPosition(hero_pos);
-						stop = true;
-					}
-					if (direction == "down")
-					{
-						Vector2f heropos = hero.getPosition();
-
-						hero_pos.x = heropos.x;
-						hero_pos.y = heropos.y;
-
-						hero_pos.y += 32;
-						hero.setPosition(hero_pos);
-						stop = true;
-					}
-					if (direction == "left")
-					{
-						Vector2f heropos = hero.getPosition();
-
-						hero_pos.x = heropos.x;
-						hero_pos.y = heropos.y;
-
-						hero_pos.x -= 32;
-						hero.setPosition(hero_pos);
-						stop = true;
-					}
-					if (direction == "right")
-					{
-						Vector2f heropos = hero.getPosition();
-
-						hero_pos.x = heropos.x;
-						hero_pos.y = heropos.y;
-
-						hero_pos.x += 32;
-						hero.setPosition(hero_pos);
-						stop = true;
-					}
-					hero_step = false;
+					hero_acts = 1;
 				}
-			}
-			if (stop)
-			{	
-				if (!Keyboard::isKeyPressed(Keyboard::Space))
+				if (Keyboard::isKeyPressed(Keyboard::Num2))
 				{
+					hero_acts = 2;
+				}
+
+				if (Keyboard::isKeyPressed(Keyboard::F1))
+				{
+					cout << "x:" << hero_pos.x << endl;
+					cout << "y:" << hero_pos.y << endl;
+
+				}
+				if (Keyboard::isKeyPressed(Keyboard::W))
+				{
+
+					direction = "up";
+
+				}
+				if (Keyboard::isKeyPressed(Keyboard::S))
+				{
+					direction = "down";
+
+				}
+				if (Keyboard::isKeyPressed(Keyboard::A))
+				{
+					direction = "left";
+				}
+				if (Keyboard::isKeyPressed(Keyboard::D))
+				{
+					direction = "right";
+				}
+				if (!stop)
+				{
+					if (Keyboard::isKeyPressed(Keyboard::Space))
+					{
+						if (hero_acts == 1)
+						{
+							if (object_type == 1)
+							{
+								action_pos.x = 100;
+								action_pos.y = 100;
+								action.setString("you drunk beer, you feel good...");
+								action.setPosition(action_pos);
+								show_object = false;
+							}
+							if (object_type == 2)
+							{
+								action_pos.x = 100;
+								action_pos.y = 100;
+								action.setString("you drunk poison, you died...");
+								action.setPosition(action_pos);
+								alive = false;
+								show_hero = false;
+								hero_is_killed = true;
+								show_object = false;
+							}
+							if (object_type == 3)
+							{
+								action_pos.x = 100;
+								action_pos.y = 100;
+								action.setString("you drunk monster, you died...");
+								action.setPosition(action_pos);
+								alive = false;
+								show_hero = false;
+								hero_is_killed = true;
+								show_object = false;
+							}
+							if (object_type == 4)
+							{
+								action_pos.x = 100;
+								action_pos.y = 100;
+								action.setString("you fucked girl, you feel good...");
+								action.setPosition(action_pos);
+								show_object = false;
+							}
+
+						}
+						if (hero_acts == 2)
+						{
+							if (object_type == 1)
+							{
+								action_pos.x = 100;
+								action_pos.y = 100;
+								action.setString("you broke beer, you feel  good...");
+								action.setPosition(action_pos);
+								show_object = false;
+							}
+							if (object_type == 2)
+							{
+								action_pos.x = 100;
+								action_pos.y = 100;
+								action.setString("you broke poison, you feel  good...");
+								action.setPosition(action_pos);
+								show_object = false;
+							}
+							if (object_type == 3)
+							{
+								action_pos.x = 100;
+								action_pos.y = 100;
+								action.setString("you killed monster, you feel  good...");
+								action.setPosition(action_pos);
+								show_object = false;
+							}
+							if (object_type == 4)
+							{
+								action_pos.x = 100;
+								action_pos.y = 100;
+								action.setString("you killed girl, god damn it...");
+								action.setPosition(action_pos);
+								show_object = false;
+							}
+
+						}
+						if (direction == "up")
+						{
+							Vector2f heropos = hero.getPosition();
+
+							hero_pos.x = heropos.x;
+							hero_pos.y = heropos.y;
+
+							hero_pos.y -= 32;
+							hero.setPosition(hero_pos);
+							stop = true;
+							hero_step = false;
+						}
+						if (direction == "down")
+						{
+							Vector2f heropos = hero.getPosition();
+
+							hero_pos.x = heropos.x;
+							hero_pos.y = heropos.y;
+
+							hero_pos.y += 32;
+							hero.setPosition(hero_pos);
+							stop = true;
+							hero_step = false;
+						}
+						if (direction == "left")
+						{
+							Vector2f heropos = hero.getPosition();
+
+							hero_pos.x = heropos.x;
+							hero_pos.y = heropos.y;
+
+							hero_pos.x -= 32;
+							hero.setPosition(hero_pos);
+							stop = true;
+							hero_step = false;
+						}
+						if (direction == "right")
+						{
+							Vector2f heropos = hero.getPosition();
+
+							hero_pos.x = heropos.x;
+							hero_pos.y = heropos.y;
+
+							hero_pos.x += 32;
+							hero.setPosition(hero_pos);
+							stop = true;
+							hero_step = false;
+						}
+
+						direction = "0";
+					}
+				}
+				if (stop)
+				{
+					if (!Keyboard::isKeyPressed(Keyboard::Space))
+					{
 						stop = false;
-				}
-	
+					}
 
+
+				}
 			}
-        }
+		}
 /////////////////////////////////////////////
 ///////////ACTIONS///////////////////////////
      check_hero_acrossed_border(direction);
      if (!alive)
-     {
-		 action_pos.x = 100;
-		 action_pos.y = 100;
-		 action.setString("you fucking died...noob");
-		 action.setPosition(action_pos);
+     { 
+		 if (hero_is_killed)
+		 {
+			 
+		 }
+		 else {
+			 action_pos.x = 100;
+			 action_pos.y = 100;
+			 action.setString("you fucking died...noob");
+			 action.setPosition(action_pos);
+		 }
 		 show_hero = false;
      }
 	 if (!hero_step)
 	 {
 		 generate_object();
 		 hero_step = true;
+	 }
+	 if (!alive)
+	 {
+		 cout << "dead"<<endl;
 	 }
 
 //////////////////////////////////////////////
