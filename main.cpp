@@ -6,6 +6,8 @@
 
 using namespace std;
 
+
+void draw_main_menu();
 void generate_object();
 void check_hero_acrossed_border(string direction);
 void set_hero_on_map();
@@ -31,6 +33,44 @@ int main()
 	action_pos.y = 100;
 	action.setPosition(action_pos);
 
+	commands_to_go.setFont(font);
+	commands_to_go.setCharacterSize(36);
+	commands_to_go.setString("W,S,D,A - move hero");
+	commandstg_pos.x = 100;
+	commandstg_pos.y = 100;
+	commands_to_go.setPosition(commandstg_pos);
+
+	
+	commands_to_eat.setFont(font);
+	commands_to_eat.setCharacterSize(36);
+	commands_to_eat.setString("1 - to eat/drink/fuck");
+	commandste_pos.x = 100;
+	commandste_pos.y = 250;
+	commands_to_eat.setPosition(commandste_pos);
+
+	
+	commands_to_kill.setFont(font);
+	commands_to_kill.setCharacterSize(36);
+	commands_to_kill.setString("2 - to kill");
+	commandstk_pos.x = 100;
+	commandstk_pos.y = 350;
+	commands_to_kill.setPosition(commandstk_pos);
+
+
+	commands_to_return.setFont(font);
+	commands_to_return.setCharacterSize(36);
+	commands_to_return.setString("Esc - to return to life");
+	commandstr_pos.x = 100;
+	commandstr_pos.y = 450;
+	commands_to_return.setPosition(commandstr_pos);
+	
+	
+	commands_to_take.setFont(font);
+	commands_to_take.setCharacterSize(36);
+	commands_to_take.setString("Space - to take action");
+	commandstt_pos.x = 100;
+	commandstt_pos.y = 550;
+	commands_to_take.setPosition(commandstt_pos);
 	set_hero_on_map();
 	while (window.isOpen())
 	{
@@ -46,255 +86,273 @@ int main()
 //////////////////////////////////////////////
 /////////////////////////////////////////////
 ////////KEY PRESSING/////////////////////////
-		if (alive)
+		if (game)
 		{
-			if (hero_step)
+			if (alive)
 			{
-				if (object_type != 5 || object_type != 6)
+				if (hero_step)
 				{
-					if (Keyboard::isKeyPressed(Keyboard::Num1))
+					if (object_type != 5 || object_type != 6)
 					{
-						hero_acts = 1;
-					}
-					if (Keyboard::isKeyPressed(Keyboard::Num2))
-					{
-						hero_acts = 2;
-					}
-				}
-				if (Keyboard::isKeyPressed(Keyboard::F1))
-				{
-					cout << "x:" << hero_pos.x << endl;
-					cout << "y:" << hero_pos.y << endl;
-
-				}
-				if (Keyboard::isKeyPressed(Keyboard::W))
-				{
-
-					direction = "up";
-
-				}
-				if (Keyboard::isKeyPressed(Keyboard::S))
-				{
-					direction = "down";
-
-				}
-				if (Keyboard::isKeyPressed(Keyboard::A))
-				{
-					direction = "left";
-				}
-				if (Keyboard::isKeyPressed(Keyboard::D))
-				{
-					direction = "right";
-				}
-				if (!stop)
-				{
-					if (Keyboard::isKeyPressed(Keyboard::Space))
-					{
-						if (hero_acts == 1)
+						if (Keyboard::isKeyPressed(Keyboard::Num1))
 						{
-							if (object_type == 1)
+							hero_acts = 1;
+						}
+						if (Keyboard::isKeyPressed(Keyboard::Num2))
+						{
+							hero_acts = 2;
+						}
+					}
+					if (Keyboard::isKeyPressed(Keyboard::F1))
+					{
+						cout << "x:" << hero_pos.x << endl;
+						cout << "y:" << hero_pos.y << endl;
+
+					}
+					if (Keyboard::isKeyPressed(Keyboard::W))
+					{
+
+						direction = "up";
+
+					}
+					if (Keyboard::isKeyPressed(Keyboard::S))
+					{
+						direction = "down";
+
+					}
+					if (Keyboard::isKeyPressed(Keyboard::A))
+					{
+						direction = "left";
+					}
+					if (Keyboard::isKeyPressed(Keyboard::D))
+					{
+						direction = "right";
+					}
+					if (!stop)
+					{
+						if (Keyboard::isKeyPressed(Keyboard::Space))
+						{
+							if (hero_acts == 1)
 							{
-								action_pos.x = 100;
-								action_pos.y = 100;
-								action.setString("you drunk beer, you feel good...");
-								action.setPosition(action_pos);
-								show_object = false;
+								if (object_type == 1)
+								{
+									action_pos.x = 100;
+									action_pos.y = 100;
+									action.setString("you drunk beer, you feel good...");
+									action.setPosition(action_pos);
+									show_object = false;
+								}
+								if (object_type == 2)
+								{
+									action_pos.x = 100;
+									action_pos.y = 100;
+									action.setString("you drunk poison, you died...");
+									action.setPosition(action_pos);
+									alive = false;
+									show_hero = false;
+									hero_is_killed = true;
+									show_object = false;
+								}
+								if (object_type == 3)
+								{
+									action_pos.x = 100;
+									action_pos.y = 100;
+									action.setString("you drunk monster, you died...");
+									action.setPosition(action_pos);
+									alive = false;
+									show_hero = false;
+									hero_is_killed = true;
+									show_object = false;
+								}
+								if (object_type == 4)
+								{
+									action_pos.x = 100;
+									action_pos.y = 100;
+									action.setString("you fucked girl, you feel good...");
+									action.setPosition(action_pos);
+									show_object = false;
+								}
+								if (object_type == 5 || object_type == 6)
+								{
+									// do nothing
+								}
+								direction = "0";
+
 							}
-							if (object_type == 2)
+							if (hero_acts == 2)
 							{
-								action_pos.x = 100;
-								action_pos.y = 100;
-								action.setString("you drunk poison, you died...");
-								action.setPosition(action_pos);
-								alive = false;
-								show_hero = false;
-								hero_is_killed = true;
-								show_object = false;
+								if (object_type == 1)
+								{
+									action_pos.x = 100;
+									action_pos.y = 100;
+									action.setString("you broke beer, you feel  good...");
+									action.setPosition(action_pos);
+									show_object = false;
+								}
+								if (object_type == 2)
+								{
+									action_pos.x = 100;
+									action_pos.y = 100;
+									action.setString("you broke poison, you feel  good...");
+									action.setPosition(action_pos);
+									show_object = false;
+								}
+								if (object_type == 3)
+								{
+									action_pos.x = 100;
+									action_pos.y = 100;
+									action.setString("you killed monster, you feel  good...");
+									action.setPosition(action_pos);
+									show_object = false;
+								}
+								if (object_type == 4)
+								{
+									action_pos.x = 100;
+									action_pos.y = 100;
+									action.setString("you killed girl, god damn it...");
+									action.setPosition(action_pos);
+									show_object = false;
+								}
+								if (object_type == 5 || object_type == 6)
+								{
+									// do nothing
+								}
+								direction = "0";
 							}
-							if (object_type == 3)
+							if (direction == "up")
 							{
-								action_pos.x = 100;
-								action_pos.y = 100;
-								action.setString("you drunk monster, you died...");
-								action.setPosition(action_pos);
-								alive = false;
-								show_hero = false;
-								hero_is_killed = true;
-								show_object = false;
+								Vector2f heropos = hero.getPosition();
+
+								hero_pos.x = heropos.x;
+								hero_pos.y = heropos.y;
+
+								hero_pos.y -= 32;
+								hero.setPosition(hero_pos);
+								stop = true;
+								hero_step = false;
 							}
-							if (object_type == 4)
+							if (direction == "down")
 							{
-								action_pos.x = 100;
-								action_pos.y = 100;
-								action.setString("you fucked girl, you feel good...");
-								action.setPosition(action_pos);
-								show_object = false;
+								Vector2f heropos = hero.getPosition();
+
+								hero_pos.x = heropos.x;
+								hero_pos.y = heropos.y;
+
+								hero_pos.y += 32;
+								hero.setPosition(hero_pos);
+								stop = true;
+								hero_step = false;
 							}
-							if (object_type == 5 || object_type == 6)
+							if (direction == "left")
 							{
-								// do nothing
+								Vector2f heropos = hero.getPosition();
+
+								hero_pos.x = heropos.x;
+								hero_pos.y = heropos.y;
+
+								hero_pos.x -= 32;
+								hero.setPosition(hero_pos);
+								stop = true;
+								hero_step = false;
 							}
+							if (direction == "right")
+							{
+								Vector2f heropos = hero.getPosition();
+
+								hero_pos.x = heropos.x;
+								hero_pos.y = heropos.y;
+
+								hero_pos.x += 32;
+								hero.setPosition(hero_pos);
+								stop = true;
+								hero_step = false;
+							}
+
 							direction = "0";
-
+							hero_acts = -1;
 						}
-						if (hero_acts == 2)
+					}
+					if (stop)
+					{
+						if (!Keyboard::isKeyPressed(Keyboard::Space))
 						{
-							if (object_type == 1)
-							{
-								action_pos.x = 100;
-								action_pos.y = 100;
-								action.setString("you broke beer, you feel  good...");
-								action.setPosition(action_pos);
-								show_object = false;
-							}
-							if (object_type == 2)
-							{
-								action_pos.x = 100;
-								action_pos.y = 100;
-								action.setString("you broke poison, you feel  good...");
-								action.setPosition(action_pos);
-								show_object = false;
-							}
-							if (object_type == 3)
-							{
-								action_pos.x = 100;
-								action_pos.y = 100;
-								action.setString("you killed monster, you feel  good...");
-								action.setPosition(action_pos);
-								show_object = false;
-							}
-							if (object_type == 4)
-							{
-								action_pos.x = 100;
-								action_pos.y = 100;
-								action.setString("you killed girl, god damn it...");
-								action.setPosition(action_pos);
-								show_object = false;
-							}
-							if (object_type == 5 || object_type == 6)
-							{
-								// do nothing
-							}
-							direction = "0";
-						}
-						if (direction == "up")
-						{
-							Vector2f heropos = hero.getPosition();
-
-							hero_pos.x = heropos.x;
-							hero_pos.y = heropos.y;
-
-							hero_pos.y -= 32;
-							hero.setPosition(hero_pos);
-							stop = true;
-							hero_step = false;
-						}
-						if (direction == "down")
-						{
-							Vector2f heropos = hero.getPosition();
-
-							hero_pos.x = heropos.x;
-							hero_pos.y = heropos.y;
-
-							hero_pos.y += 32;
-							hero.setPosition(hero_pos);
-							stop = true;
-							hero_step = false;
-						}
-						if (direction == "left")
-						{
-							Vector2f heropos = hero.getPosition();
-
-							hero_pos.x = heropos.x;
-							hero_pos.y = heropos.y;
-
-							hero_pos.x -= 32;
-							hero.setPosition(hero_pos);
-							stop = true;
-							hero_step = false;
-						}
-						if (direction == "right")
-						{
-							Vector2f heropos = hero.getPosition();
-
-							hero_pos.x = heropos.x;
-							hero_pos.y = heropos.y;
-
-							hero_pos.x += 32;
-							hero.setPosition(hero_pos);
-							stop = true;
-							hero_step = false;
+							stop = false;
 						}
 
-						direction = "0";
-						hero_acts = -1;
+
 					}
 				}
-				if (stop)
+			}
+			if (!alive)
+			{
+				if (Keyboard::isKeyPressed(Keyboard::Escape))
 				{
-					if (!Keyboard::isKeyPressed(Keyboard::Space))
-					{
-						stop = false;
-					}
-
-
+					show_hero = true;
+					alive = true;
+					set_hero_on_map();
+					action_pos.x = 100;
+					action_pos.y = 100;
+					action.setString("you was born...again");
+					action.setPosition(action_pos);
 				}
 			}
 		}
-		if (!alive)
-		{
-			if (Keyboard::isKeyPressed(Keyboard::Escape))
-			{
-				show_hero = true;
-				alive = true;
-				set_hero_on_map();
-				action_pos.x = 100;
-				action_pos.y = 100;
-				action.setString("you was born...again");
-				action.setPosition(action_pos);
-			}
-		}
+       else {
+		   if (Keyboard::isKeyPressed(Keyboard::Space))
+		   {
+			   game = true;
+		   }
+       }
 /////////////////////////////////////////////
 ///////////ACTIONS///////////////////////////
-     check_hero_acrossed_border(direction);
-     if (!alive)
-     { 
-		 if (hero_is_killed)
-		 {
-			 
-		 }
-		 else {
-			 action_pos.x = 100;
-			 action_pos.y = 100;
-			 action.setString("you fucking died...noob");
-			 action.setPosition(action_pos);
-		 }
-		 show_hero = false;
-     }
-	 if (!hero_step)
-	 {
-		 generate_object();
-		 hero_step = true;
-	 }
+		if (game)
+		{
+			check_hero_acrossed_border(direction);
+			if (!alive)
+			{
+				if (hero_is_killed)
+				{
 
+				}
+				else {
+					action_pos.x = 100;
+					action_pos.y = 100;
+					action.setString("you fucking died...noob");
+					action.setPosition(action_pos);
+				}
+				show_hero = false;
+			}
+			if (!hero_step)
+			{
+				generate_object();
+				hero_step = true;
+			}
 
+		}
 //////////////////////////////////////////////
 //////////////////////////////////////////////
 ////////////DRAWING///////////////////////////
 //////////////////////////////////////////////
 		window.clear();
-		if (show_hero)
+		if (game)
 		{
-			window.draw(hero);
+			if (show_hero)
+			{
+				window.draw(hero);
+			}
+			if (show_object)
+			{
+				window.draw(object);
+			}
+			window.draw(action);
+			draw_vertical_borders();
+			draw_action_line();
+			draw_borders();
+			
 		}
-		if (show_object)
-		{
-			window.draw(object);
+		else {
+			draw_main_menu();
 		}
-		window.draw(action);
-		draw_vertical_borders();
-		draw_action_line();
-		draw_borders();
 		window.display();
 //////////////////////////////////////////////
 //////////////////////////////////////////////
@@ -516,4 +574,12 @@ void generate_object()
 		object_ = "nothing";
 		show_object = false;
 	}
+}
+void draw_main_menu()
+{
+	window.draw(commands_to_go);
+	window.draw(commands_to_eat);
+	window.draw(commands_to_kill);
+	window.draw(commands_to_return);
+	window.draw(commands_to_take);
 }

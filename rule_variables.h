@@ -12,3 +12,5 @@ int  object_type;
 string object_; // beer, poison, girl, monster
 int hero_acts;
 bool hero_is_killed = false;
+
+bool game = false; // at the begging show the panel with commands
