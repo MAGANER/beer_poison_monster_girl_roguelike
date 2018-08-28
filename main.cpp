@@ -1,81 +1,28 @@
-#include<SFML/Graphics.hpp>
 #include"rule_variables.h"
 #include"stdafx.h"
 #include"objects.h"
 #include<iostream>
+#include"Hero.h"
+#include"Start_window.h"
+#include"Border.h"
+#include"Object.h"
+#include"Action.h"
 
-using namespace std;
+void init(Font font);
 
-
-void draw_main_menu();
-void generate_object();
-void check_hero_acrossed_border(string direction);
-void set_hero_on_map();
-void draw_action_line();
-void draw_vertical_borders();
-void draw_borders();
 int main()
 {
-	
-	action.setFont(font);
-	hero.setCharacterSize(36);
-
-
-	font.loadFromFile("9303.ttf");
-	hero.setFont(font);
-	hero.setCharacterSize(36);
-	hero.setString("@");
-
-	object.setFont(font);
-	object.setCharacterSize(36);
-	object.setString("?");
-	action_pos.x = 100;
-	action_pos.y = 100;
-	action.setPosition(action_pos);
-
-	commands_to_go.setFont(font);
-	commands_to_go.setCharacterSize(36);
-	commands_to_go.setString("W,S,D,A - move hero");
-	commandstg_pos.x = 100;
-	commandstg_pos.y = 100;
-	commands_to_go.setPosition(commandstg_pos);
+	Font font;
+	RenderWindow window(sf::VideoMode(800, 600), "WORLDOFFUCKINGSORROW");
 
 	
-	commands_to_eat.setFont(font);
-	commands_to_eat.setCharacterSize(36);
-	commands_to_eat.setString("1 - to eat/drink/fuck");
-	commandste_pos.x = 100;
-	commandste_pos.y = 250;
-	commands_to_eat.setPosition(commandste_pos);
 
+	init(font);
 	
-	commands_to_kill.setFont(font);
-	commands_to_kill.setCharacterSize(36);
-	commands_to_kill.setString("2 - to kill");
-	commandstk_pos.x = 100;
-	commandstk_pos.y = 350;
-	commands_to_kill.setPosition(commandstk_pos);
-
-
-	commands_to_return.setFont(font);
-	commands_to_return.setCharacterSize(36);
-	commands_to_return.setString("Esc - to return to life");
-	commandstr_pos.x = 100;
-	commandstr_pos.y = 450;
-	commands_to_return.setPosition(commandstr_pos);
-	
-	
-	commands_to_take.setFont(font);
-	commands_to_take.setCharacterSize(36);
-	commands_to_take.setString("Space - to take action");
-	commandstt_pos.x = 100;
-	commandstt_pos.y = 550;
-	commands_to_take.setPosition(commandstt_pos);
-	set_hero_on_map();
 	while (window.isOpen())
 	{
-//////////////////////////////////////////////
-//////////EVENT///////////////////////////////
+
+//////////EVENT CHECKING//////////////////////
 //////////////////////////////////////////////
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -83,9 +30,9 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-//////////////////////////////////////////////
-/////////////////////////////////////////////
+
 ////////KEY PRESSING/////////////////////////
+/////////////////////////////////////////////
 		if (game)
 		{
 			if (alive)
@@ -132,6 +79,7 @@ int main()
 					{
 						if (Keyboard::isKeyPressed(Keyboard::Space))
 						{
+							//eat or kill object
 							if (hero_acts == 1)
 							{
 								if (object_type == 1)
@@ -219,6 +167,8 @@ int main()
 								}
 								direction = "0";
 							}
+
+							//gowing
 							if (direction == "up")
 							{
 								Vector2f heropos = hero.getPosition();
@@ -268,6 +218,7 @@ int main()
 								hero_step = false;
 							}
 
+							
 							direction = "0";
 							hero_acts = -1;
 						}
@@ -303,11 +254,12 @@ int main()
 			   game = true;
 		   }
        }
-/////////////////////////////////////////////
+
 ///////////ACTIONS///////////////////////////
+/////////////////////////////////////////////
 		if (game)
 		{
-			check_hero_acrossed_border(direction);
+			check_hero_acrossed_border(direction, show_object);
 			if (!alive)
 			{
 				if (hero_is_killed)
@@ -324,13 +276,12 @@ int main()
 			}
 			if (!hero_step)
 			{
-				generate_object();
+				generate_object(hero_pos, action, action_pos);
 				hero_step = true;
 			}
 
 		}
-//////////////////////////////////////////////
-//////////////////////////////////////////////
+
 ////////////DRAWING///////////////////////////
 //////////////////////////////////////////////
 		window.clear();
@@ -345,241 +296,78 @@ int main()
 				window.draw(object);
 			}
 			window.draw(action);
-			draw_vertical_borders();
-			draw_action_line();
-			draw_borders();
+			draw_vertical_borders(font, window);
+			draw_action_line(font, window);
+			draw_borders(font, window);
 			
 		}
 		else {
-			draw_main_menu();
+			draw_main_menu(window);
 		}
 		window.display();
 //////////////////////////////////////////////
-//////////////////////////////////////////////
+
 	}
 
 	return 0;
 }
-void draw_borders()
+void init(Font font)
 {
-	Text border;
-	border.setFont(font);
-	border.setString("fuckyou");
-	border.setCharacterSize(24);
-	Vector2f border_pos_up;
-	border_pos_up.x = 0;
+	action.setFont(font);
+	hero.setCharacterSize(36);
 
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		border_pos_up.x += 120;
-		border.setPosition(border_pos_up);
-	}
 
-	Vector2f border_pos_down;
-	border_pos_down.x = 0;
-	border_pos_down.y = 576;
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		border_pos_down.x += 120;
-		border.setPosition(border_pos_down);
-	}
+	font.loadFromFile("9303.ttf");
+	hero.setFont(font);
+	hero.setCharacterSize(36);
+	hero.setString("@");
 
-	border_pos_down.y = 576;
-	border_pos_down.x = 0;
-	border.setPosition(border_pos_down);
-	window.draw(border);
+	object.setFont(font);
+	object.setCharacterSize(36);
+	object.setString("?");
+	action_pos.x = 100;
+	action_pos.y = 100;
+	action.setPosition(action_pos);
 
+	commands_to_go.setFont(font);
+	commands_to_go.setCharacterSize(36);
+	commands_to_go.setString("W,S,D,A - move hero");
+	commandstg_pos.x = 100;
+	commandstg_pos.y = 100;
+	commands_to_go.setPosition(commandstg_pos);
+
+
+	commands_to_eat.setFont(font);
+	commands_to_eat.setCharacterSize(36);
+	commands_to_eat.setString("1 - to eat/drink/fuck");
+	commandste_pos.x = 100;
+	commandste_pos.y = 250;
+	commands_to_eat.setPosition(commandste_pos);
+
+
+	commands_to_kill.setFont(font);
+	commands_to_kill.setCharacterSize(36);
+	commands_to_kill.setString("2 - to kill");
+	commandstk_pos.x = 100;
+	commandstk_pos.y = 350;
+	commands_to_kill.setPosition(commandstk_pos);
+
+
+	commands_to_return.setFont(font);
+	commands_to_return.setCharacterSize(36);
+	commands_to_return.setString("Esc - to return to life");
+	commandstr_pos.x = 100;
+	commandstr_pos.y = 450;
+	commands_to_return.setPosition(commandstr_pos);
+
+
+	commands_to_take.setFont(font);
+	commands_to_take.setCharacterSize(36);
+	commands_to_take.setString("Space - to take action");
+	commandstt_pos.x = 100;
+	commandstt_pos.y = 550;
+	commands_to_take.setPosition(commandstt_pos);
+	set_hero_on_map();
 }
-void draw_vertical_borders()
-{
-	Text border;
-	border.setFont(font);
-	border.setString("fuckyou");
-	border.setCharacterSize(24);
-	border.setRotation(90);
-	Vector2f pos;
-	pos.x = 30;
-	pos.y = 0;
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		pos.y += 120;
-		border.setPosition(pos);
 
-	}
-	pos.y = 0;
-	border.setPosition(pos);
-	window.draw(border);
 
-	pos.x = 810;
-	pos.y = 0;
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		pos.y += 120;
-		border.setPosition(pos);
-	}
-	pos.y = 0;
-	border.setPosition(pos);
-	window.draw(border);
-}
-void draw_action_line()
-{
-	Text border;
-	border.setFont(font);
-	border.setString("fuckyou");
-	border.setCharacterSize(24);
-	Vector2f border_pos_up;
-	border_pos_up.x = 0;
-	border_pos_up.y = 140;
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		border_pos_up.x += 120;
-		border.setPosition(border_pos_up);
-	}
-	border_pos_up.x = 0;
-	border_pos_up.y = 140;
-	border.setPosition(border_pos_up);
-	window.draw(border);
-}
-void set_hero_on_map()
-{
-	srand(time( (unsigned int) 0));
-	int y = 140 + rand() % 480;
-	int x = 20 + rand() % 370;
-
-	Vector2f hero_pos;
-	hero_pos.y =(float) y;
-	hero_pos.x = (float)x;
-	hero.setPosition(hero_pos);
-}
-void check_hero_acrossed_border(string direction)
-{
-	Vector2f hero_pos;
-	hero_pos = hero.getPosition();
-
-	if (direction == "up")
-	{
-		if (hero_pos.y < 140)
-		{
-			alive = false;
-			show_object = false;
-	    }
-	}
-	if (direction == "down")
-	{
-		if (hero_pos.y >540)
-		{
-			alive = false;
-			show_object = false;
-		}
-	}
-	if (direction == "left")
-	{
-		if (hero_pos.x < 5)
-		{
-			alive = false;
-			show_object = false;
-		}
-	}
-	if (direction == "right")
-	{
-		if (hero_pos.x >790)
-		{
-			alive = false;
-			show_object = false;
-		}
-	}
-}
-void generate_object()
-{
-	srand(time((unsigned int)0));
-	object_type = 1 + rand() % 6;
-	int object_direction = 1 + rand() % 4;
-	//1 - left
-	//2 - right
-	//3 - up
-	//4 - down
-	if (object_direction == 1)
-	{
-		object_pos.x = hero_pos.x - 32;
-		object_pos.y = hero_pos.y;
-	}
-	if (object_direction == 2)
-	{
-		object_pos.x = hero_pos.x + 32;
-		object_pos.y = hero_pos.y;
-	}
-	if (object_direction == 3)
-	{
-		object_pos.y = hero_pos.y - 32;
-		object_pos.x = hero_pos.x;
-	}
-	if (object_direction == 4)
-	{
-		object_pos.y = hero_pos.y + 32;
-		object_pos.x = hero_pos.x;
-	}
-	object.setPosition(object_pos);
-	if (object_type == 1)
-	{
-		object_ = "beer";
-		show_object = true;
-		//it is a beer
-		action_pos.x = 100;
-		action_pos.y = 100;
-		action.setString("you see fucking something...");
-		action.setPosition(action_pos);
-	}
-	if (object_type == 2)
-	{
-		object_ = "poison";
-		show_object = true;
-		//it is a poison
-		action_pos.x = 100;
-		action_pos.y = 100;
-		action.setString("you see fucking something...");
-		action.setPosition(action_pos);
-	}
-	if (object_type == 3)
-	{
-		object_ = "monster";
-		show_object = true;
-		//it is a monster
-		action_pos.x = 100;
-		action_pos.y = 100;
-		action.setString("you see fucking something...");
-		action.setPosition(action_pos);
-	}
-	if (object_type == 4)
-	{
-		object_ = "girl";
-		show_object = true;
-		//it is a girl
-		action_pos.x = 100;
-		action_pos.y = 100;
-		action.setString("you see fucking something...");
-		action.setPosition(action_pos);
-	}
-	if (object_type == 5 || object_type == 6)
-	{
-		// it is nothing
-		action_pos.x = 100;
-		action_pos.y = 100;
-		action.setString("you see fucking nothing...");
-		action.setPosition(action_pos);
-		object_ = "nothing";
-		show_object = false;
-	}
-}
-void draw_main_menu()
-{
-	window.draw(commands_to_go);
-	window.draw(commands_to_eat);
-	window.draw(commands_to_kill);
-	window.draw(commands_to_return);
-	window.draw(commands_to_take);
-}
