@@ -1,6 +1,6 @@
 #pragma once
 #include"Hero.h"
-
+#include"Object.h"
 bool hero_step = true;
 string direction;
 bool alive = true; 
