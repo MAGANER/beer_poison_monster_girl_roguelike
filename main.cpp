@@ -3,11 +3,9 @@
 #include"stdafx.h"
 #include"objects.h"
 #include<iostream>
+#include"StartWindow.h"
+#include"Hero.h"
 
-
-
-
-void draw_main_menu();
 void generate_object();
 void check_hero_acrossed_border(string direction);
 void set_hero_on_map();
@@ -16,6 +14,7 @@ void set_hero_on_map();
 void init();
 int main()
 {
+	RenderWindow window(sf::VideoMode(800, 600), "WORLDOFFUCKINGSORROW");
 	init();
 	
 	while (window.isOpen())
@@ -297,7 +296,7 @@ int main()
 			
 		}
 		else {
-			draw_main_menu();
+			draw_main_menu(window);
 		}
 		window.display();
 //////////////////////////////////////////////
@@ -308,55 +307,7 @@ int main()
 }
 
 
-void set_hero_on_map()
-{
-	srand(time( (unsigned int) 0));
-	int y = 140 + rand() % 480;
-	int x = 20 + rand() % 370;
 
-	Vector2f hero_pos;
-	hero_pos.y =(float) y;
-	hero_pos.x = (float)x;
-	hero.setPosition(hero_pos);
-}
-void check_hero_acrossed_border(string direction)
-{
-	Vector2f hero_pos;
-	hero_pos = hero.getPosition();
-
-	if (direction == "up")
-	{
-		if (hero_pos.y < 140)
-		{
-			alive = false;
-			show_object = false;
-	    }
-	}
-	if (direction == "down")
-	{
-		if (hero_pos.y >540)
-		{
-			alive = false;
-			show_object = false;
-		}
-	}
-	if (direction == "left")
-	{
-		if (hero_pos.x < 5)
-		{
-			alive = false;
-			show_object = false;
-		}
-	}
-	if (direction == "right")
-	{
-		if (hero_pos.x >790)
-		{
-			alive = false;
-			show_object = false;
-		}
-	}
-}
 
 void generate_object()
 {
@@ -439,14 +390,7 @@ void generate_object()
 		show_object = false;
 	}
 }
-void draw_main_menu()
-{
-	window.draw(commands_to_go);
-	window.draw(commands_to_eat);
-	window.draw(commands_to_kill);
-	window.draw(commands_to_return);
-	window.draw(commands_to_take);
-}
+
 
 void init()
 {
