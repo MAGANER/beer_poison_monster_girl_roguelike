@@ -1,6 +1,6 @@
 #pragma once
 #include"stdafx.h"
-
+#include"Action.h"
 bool show_object = false;
 int  object_type;
 string object_; // beer, poison, girl, monster

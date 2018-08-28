@@ -7,6 +7,7 @@
 #include"Hero.h"
 #include"Object.h"
 
+Font font;
 
 void init();
 int main()
