@@ -266,7 +266,7 @@ int main()
 			}
 			if (!hero_step)
 			{
-				generate_object();
+				generate_object(object_pos, hero_pos);
 				hero_step = true;
 			}
 

@@ -4,9 +4,10 @@
 bool show_object = false;
 int  object_type;
 string object_; // beer, poison, girl, monster
+Vector2f object_pos;
+Text object;
 
-
-void generate_object()
+void generate_object(Vector2f & object_pos, Vector2f & hero_pos)
 {
 	srand(time((unsigned int)0));
 	object_type = 1 + rand() % 6;

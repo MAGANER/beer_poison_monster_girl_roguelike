@@ -1,6 +1,9 @@
 #pragma once
 #include"Hero.h"
 #include"Object.h"
+
+Text hero;
+Vector2f hero_pos;
 bool hero_step = true;
 string direction;
 bool alive = true; 
