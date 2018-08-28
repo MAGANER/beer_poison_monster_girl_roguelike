@@ -1,77 +1,23 @@
-#include<SFML/Graphics.hpp>
+#include"Map.h"
 #include"rule_variables.h"
 #include"stdafx.h"
 #include"objects.h"
 #include<iostream>
 
-using namespace std;
+
 
 
 void draw_main_menu();
 void generate_object();
 void check_hero_acrossed_border(string direction);
 void set_hero_on_map();
-void draw_action_line();
-void draw_vertical_borders();
-void draw_borders();
+
+
+void init();
 int main()
 {
+	init();
 	
-	action.setFont(font);
-	hero.setCharacterSize(36);
-
-
-	font.loadFromFile("9303.ttf");
-	hero.setFont(font);
-	hero.setCharacterSize(36);
-	hero.setString("@");
-
-	object.setFont(font);
-	object.setCharacterSize(36);
-	object.setString("?");
-	action_pos.x = 100;
-	action_pos.y = 100;
-	action.setPosition(action_pos);
-
-	commands_to_go.setFont(font);
-	commands_to_go.setCharacterSize(36);
-	commands_to_go.setString("W,S,D,A - move hero");
-	commandstg_pos.x = 100;
-	commandstg_pos.y = 100;
-	commands_to_go.setPosition(commandstg_pos);
-
-	
-	commands_to_eat.setFont(font);
-	commands_to_eat.setCharacterSize(36);
-	commands_to_eat.setString("1 - to eat/drink/fuck");
-	commandste_pos.x = 100;
-	commandste_pos.y = 250;
-	commands_to_eat.setPosition(commandste_pos);
-
-	
-	commands_to_kill.setFont(font);
-	commands_to_kill.setCharacterSize(36);
-	commands_to_kill.setString("2 - to kill");
-	commandstk_pos.x = 100;
-	commandstk_pos.y = 350;
-	commands_to_kill.setPosition(commandstk_pos);
-
-
-	commands_to_return.setFont(font);
-	commands_to_return.setCharacterSize(36);
-	commands_to_return.setString("Esc - to return to life");
-	commandstr_pos.x = 100;
-	commandstr_pos.y = 450;
-	commands_to_return.setPosition(commandstr_pos);
-	
-	
-	commands_to_take.setFont(font);
-	commands_to_take.setCharacterSize(36);
-	commands_to_take.setString("Space - to take action");
-	commandstt_pos.x = 100;
-	commandstt_pos.y = 550;
-	commands_to_take.setPosition(commandstt_pos);
-	set_hero_on_map();
 	while (window.isOpen())
 	{
 //////////////////////////////////////////////
@@ -345,9 +291,9 @@ int main()
 				window.draw(object);
 			}
 			window.draw(action);
-			draw_vertical_borders();
-			draw_action_line();
-			draw_borders();
+			draw_vertical_borders(font,window);
+			draw_action_line(font, window);
+			draw_borders(font, window);
 			
 		}
 		else {
@@ -360,91 +306,8 @@ int main()
 
 	return 0;
 }
-void draw_borders()
-{
-	Text border;
-	border.setFont(font);
-	border.setString("fuckyou");
-	border.setCharacterSize(24);
-	Vector2f border_pos_up;
-	border_pos_up.x = 0;
 
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		border_pos_up.x += 120;
-		border.setPosition(border_pos_up);
-	}
 
-	Vector2f border_pos_down;
-	border_pos_down.x = 0;
-	border_pos_down.y = 576;
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		border_pos_down.x += 120;
-		border.setPosition(border_pos_down);
-	}
-
-	border_pos_down.y = 576;
-	border_pos_down.x = 0;
-	border.setPosition(border_pos_down);
-	window.draw(border);
-
-}
-void draw_vertical_borders()
-{
-	Text border;
-	border.setFont(font);
-	border.setString("fuckyou");
-	border.setCharacterSize(24);
-	border.setRotation(90);
-	Vector2f pos;
-	pos.x = 30;
-	pos.y = 0;
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		pos.y += 120;
-		border.setPosition(pos);
-
-	}
-	pos.y = 0;
-	border.setPosition(pos);
-	window.draw(border);
-
-	pos.x = 810;
-	pos.y = 0;
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		pos.y += 120;
-		border.setPosition(pos);
-	}
-	pos.y = 0;
-	border.setPosition(pos);
-	window.draw(border);
-}
-void draw_action_line()
-{
-	Text border;
-	border.setFont(font);
-	border.setString("fuckyou");
-	border.setCharacterSize(24);
-	Vector2f border_pos_up;
-	border_pos_up.x = 0;
-	border_pos_up.y = 140;
-	for (int i = 0; i < 7; i++)
-	{
-		window.draw(border);
-		border_pos_up.x += 120;
-		border.setPosition(border_pos_up);
-	}
-	border_pos_up.x = 0;
-	border_pos_up.y = 140;
-	border.setPosition(border_pos_up);
-	window.draw(border);
-}
 void set_hero_on_map()
 {
 	srand(time( (unsigned int) 0));
@@ -494,6 +357,7 @@ void check_hero_acrossed_border(string direction)
 		}
 	}
 }
+
 void generate_object()
 {
 	srand(time((unsigned int)0));
@@ -582,4 +446,63 @@ void draw_main_menu()
 	window.draw(commands_to_kill);
 	window.draw(commands_to_return);
 	window.draw(commands_to_take);
+}
+
+void init()
+{
+	action.setFont(font);
+	hero.setCharacterSize(36);
+
+
+	font.loadFromFile("9303.ttf");
+	hero.setFont(font);
+	hero.setCharacterSize(36);
+	hero.setString("@");
+
+	object.setFont(font);
+	object.setCharacterSize(36);
+	object.setString("?");
+	action_pos.x = 100;
+	action_pos.y = 100;
+	action.setPosition(action_pos);
+
+	commands_to_go.setFont(font);
+	commands_to_go.setCharacterSize(36);
+	commands_to_go.setString("W,S,D,A - move hero");
+	commandstg_pos.x = 100;
+	commandstg_pos.y = 100;
+	commands_to_go.setPosition(commandstg_pos);
+
+
+	commands_to_eat.setFont(font);
+	commands_to_eat.setCharacterSize(36);
+	commands_to_eat.setString("1 - to eat/drink/fuck");
+	commandste_pos.x = 100;
+	commandste_pos.y = 250;
+	commands_to_eat.setPosition(commandste_pos);
+
+
+	commands_to_kill.setFont(font);
+	commands_to_kill.setCharacterSize(36);
+	commands_to_kill.setString("2 - to kill");
+	commandstk_pos.x = 100;
+	commandstk_pos.y = 350;
+	commands_to_kill.setPosition(commandstk_pos);
+
+
+	commands_to_return.setFont(font);
+	commands_to_return.setCharacterSize(36);
+	commands_to_return.setString("Esc - to return to life");
+	commandstr_pos.x = 100;
+	commandstr_pos.y = 450;
+	commands_to_return.setPosition(commandstr_pos);
+
+
+	commands_to_take.setFont(font);
+	commands_to_take.setCharacterSize(36);
+	commands_to_take.setString("Space - to take action");
+	commandstt_pos.x = 100;
+	commandstt_pos.y = 550;
+	commands_to_take.setPosition(commandstt_pos);
+	set_hero_on_map();
 }
