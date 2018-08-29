@@ -6,3 +6,5 @@
 bool stop = false;
 
 bool game = false; // at the begging show the panel with commands
+
+bool records = false;

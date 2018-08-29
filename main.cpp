@@ -1,11 +1,12 @@
 #include"Map.h"
 #include"rule_variables.h"
 #include"stdafx.h"
-#include"objects.h"
 #include<iostream>
 #include"StartWindow.h"
 #include"Hero.h"
 #include"Object.h"
+#include"Record.h"
+
 
 Font font;
 
@@ -71,6 +72,13 @@ int main()
 					{
 						direction = "right";
 					}
+
+					if (Keyboard::isKeyPressed(Keyboard::R))
+					{
+						records = true;
+						game = false;
+					}
+
 					if (!stop)
 					{
 						if (Keyboard::isKeyPressed(Keyboard::Space))
@@ -84,6 +92,7 @@ int main()
 									action.setString("you drunk beer, you feel good...");
 									action.setPosition(action_pos);
 									show_object = false;
+									maximal_step++;
 								}
 								if (object_type == 2)
 								{
@@ -114,6 +123,7 @@ int main()
 									action.setString("you fucked girl, you feel good...");
 									action.setPosition(action_pos);
 									show_object = false;
+									maximal_step++;
 								}
 								if (object_type == 5 || object_type == 6)
 								{
@@ -131,6 +141,7 @@ int main()
 									action.setString("you broke beer, you feel  good...");
 									action.setPosition(action_pos);
 									show_object = false;
+									maximal_step++;
 								}
 								if (object_type == 2)
 								{
@@ -139,6 +150,7 @@ int main()
 									action.setString("you broke poison, you feel  good...");
 									action.setPosition(action_pos);
 									show_object = false;
+									maximal_step++;
 								}
 								if (object_type == 3)
 								{
@@ -147,6 +159,7 @@ int main()
 									action.setString("you killed monster, you feel  good...");
 									action.setPosition(action_pos);
 									show_object = false;
+									maximal_step++;
 								}
 								if (object_type == 4)
 								{
@@ -155,6 +168,7 @@ int main()
 									action.setString("you killed girl, god damn it...");
 									action.setPosition(action_pos);
 									show_object = false;
+									maximal_step++;
 								}
 								if (object_type == 5 || object_type == 6)
 								{
@@ -173,6 +187,7 @@ int main()
 								hero.setPosition(hero_pos);
 								stop = true;
 								hero_step = false;
+								maximal_step++;
 							}
 							if (direction == "down")
 							{
@@ -185,6 +200,7 @@ int main()
 								hero.setPosition(hero_pos);
 								stop = true;
 								hero_step = false;
+								maximal_step++;
 							}
 							if (direction == "left")
 							{
@@ -197,6 +213,7 @@ int main()
 								hero.setPosition(hero_pos);
 								stop = true;
 								hero_step = false;
+								maximal_step++;
 							}
 							if (direction == "right")
 							{
@@ -209,6 +226,7 @@ int main()
 								hero.setPosition(hero_pos);
 								stop = true;
 								hero_step = false;
+								maximal_step++;
 							}
 
 							direction = "0";
@@ -246,6 +264,15 @@ int main()
 			   game = true;
 		   }
        }
+
+	   if (records)
+	   {
+		   if (Keyboard::isKeyPressed(Keyboard::Escape))
+		   {
+			   game = true;
+			   records = false;
+		   }
+	   }
 /////////////////////////////////////////////
 ///////////ACTIONS///////////////////////////
 		if (game)
@@ -293,20 +320,32 @@ int main()
 			draw_borders(font, window);
 			
 		}
-		else {
+		if (!game && !records)
+		{
 			draw_main_menu(window);
 		}
+		if (!game && records)
+		{
+			
+			draw_records(window);
+		}
+
 		window.display();
 //////////////////////////////////////////////
 //////////////////////////////////////////////
 	}
-
+	if (!window.isOpen())
+	{
+		cout << "it is closed!";
+		set_max_step_to_file();
+	}
 	return 0;
 }
 
 
 void init()
 {
+	get_max_step_from_file();
 	action.setFont(font);
 	hero.setCharacterSize(36);
 
@@ -315,6 +354,9 @@ void init()
 	hero.setFont(font);
 	hero.setCharacterSize(36);
 	hero.setString("@");
+
+
+	max_step.setFont(font);
 
 	object.setFont(font);
 	object.setCharacterSize(36);
