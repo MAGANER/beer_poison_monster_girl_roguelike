@@ -9,6 +9,7 @@ Vector2f max_step_pos;
 
 void draw_records(RenderWindow & window)
 {
+	
 	max_step_pos.x = 100;
 	max_step_pos.y = 100;
 
@@ -17,16 +18,5 @@ void draw_records(RenderWindow & window)
 
 	window.draw(max_step);
 }
-void get_max_step_from_file()
-{
-	ifstream file("d");
-	file >> maximal_step;
-	file.close();
-}
-void set_max_step_to_file()
-{
-	ofstream file("d");
-	file << maximal_step;
-	file.close();
-}
+
 

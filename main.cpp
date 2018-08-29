@@ -25,7 +25,11 @@ int main()
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
+
 				window.close();
+			}
+		
 		}
 //////////////////////////////////////////////
 /////////////////////////////////////////////
@@ -214,6 +218,7 @@ int main()
 								stop = true;
 								hero_step = false;
 								maximal_step++;
+
 							}
 							if (direction == "right")
 							{
@@ -231,6 +236,7 @@ int main()
 
 							direction = "0";
 							hero_acts = -1;
+							
 						}
 					}
 					if (stop)
@@ -334,18 +340,13 @@ int main()
 //////////////////////////////////////////////
 //////////////////////////////////////////////
 	}
-	if (!window.isOpen())
-	{
-		cout << "it is closed!";
-		set_max_step_to_file();
-	}
 	return 0;
 }
 
 
 void init()
 {
-	get_max_step_from_file();
+
 	action.setFont(font);
 	hero.setCharacterSize(36);
 
