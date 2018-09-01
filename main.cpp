@@ -97,6 +97,7 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
+									good_actions++;
 								}
 								if (object_type == 2)
 								{
@@ -104,6 +105,7 @@ int main()
 									action_pos.y = 100;
 									action.setString("you drunk poison, you died...");
 									action.setPosition(action_pos);
+									evil_actions++;
 									alive = false;
 									show_hero = false;
 									hero_is_killed = true;
@@ -115,6 +117,7 @@ int main()
 									action_pos.y = 100;
 									action.setString("you drunk monster, you died...");
 									action.setPosition(action_pos);
+									evil_actions++;
 									alive = false;
 									show_hero = false;
 									hero_is_killed = true;
@@ -128,6 +131,7 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
+									good_actions++;
 								}
 								if (object_type == 5 || object_type == 6)
 								{
@@ -146,6 +150,7 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
+									evil_actions++;
 								}
 								if (object_type == 2)
 								{
@@ -155,6 +160,7 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
+									good_actions++;
 								}
 								if (object_type == 3)
 								{
@@ -164,6 +170,7 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
+									good_actions++;
 								}
 								if (object_type == 4)
 								{
@@ -173,6 +180,7 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
+									evil_actions++;
 								}
 								if (object_type == 5 || object_type == 6)
 								{
@@ -320,6 +328,9 @@ int main()
 			{
 				window.draw(object);
 			}
+			draw_statistic(window);
+			
+			
 			window.draw(action);
 			draw_vertical_borders(font,window);
 			draw_action_line(font, window);
@@ -347,6 +358,8 @@ int main()
 void init()
 {
 
+	good.setFont(font);
+	evil.setFont(font);
 	action.setFont(font);
 	hero.setCharacterSize(36);
 
