@@ -379,6 +379,7 @@ void init()
 	action_pos.y = 100;
 	action.setPosition(action_pos);
 
+	commands_to_show.setFont(font);
 	commands_to_go.setFont(font);
 	commands_to_eat.setFont(font);
 	commands_to_kill.setFont(font);
