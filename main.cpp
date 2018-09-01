@@ -380,42 +380,11 @@ void init()
 	action.setPosition(action_pos);
 
 	commands_to_go.setFont(font);
-	commands_to_go.setCharacterSize(36);
-	commands_to_go.setString("W,S,D,A - move hero");
-	commandstg_pos.x = 100;
-	commandstg_pos.y = 100;
-	commands_to_go.setPosition(commandstg_pos);
-
-
 	commands_to_eat.setFont(font);
-	commands_to_eat.setCharacterSize(36);
-	commands_to_eat.setString("1 - to eat/drink/fuck");
-	commandste_pos.x = 100;
-	commandste_pos.y = 250;
-	commands_to_eat.setPosition(commandste_pos);
-
-
 	commands_to_kill.setFont(font);
-	commands_to_kill.setCharacterSize(36);
-	commands_to_kill.setString("2 - to kill");
-	commandstk_pos.x = 100;
-	commandstk_pos.y = 350;
-	commands_to_kill.setPosition(commandstk_pos);
-
-
 	commands_to_return.setFont(font);
-	commands_to_return.setCharacterSize(36);
-	commands_to_return.setString("Esc - to return to life");
-	commandstr_pos.x = 100;
-	commandstr_pos.y = 450;
-	commands_to_return.setPosition(commandstr_pos);
-
-
 	commands_to_take.setFont(font);
-	commands_to_take.setCharacterSize(36);
-	commands_to_take.setString("Space - to take action");
-	commandstt_pos.x = 100;
-	commandstt_pos.y = 550;
-	commands_to_take.setPosition(commandstt_pos);
+	set_commands_parameters();
+
 	set_hero_on_map();
 }
