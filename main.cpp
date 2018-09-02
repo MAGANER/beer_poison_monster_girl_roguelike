@@ -105,7 +105,11 @@ int main()
 									action_pos.y = 100;
 									action.setString("you drunk poison, you died...");
 									action.setPosition(action_pos);
-									evil_actions++;
+									if (!stop_counting_actions)
+									{
+										evil_actions++;
+										stop_counting_actions = true;
+									}
 									alive = false;
 									show_hero = false;
 									hero_is_killed = true;
@@ -117,7 +121,11 @@ int main()
 									action_pos.y = 100;
 									action.setString("you drunk monster, you died...");
 									action.setPosition(action_pos);
-									evil_actions++;
+									if (!stop_counting_actions)
+									{
+										evil_actions++;
+										stop_counting_actions = true;
+									}
 									alive = false;
 									show_hero = false;
 									hero_is_killed = true;
@@ -131,7 +139,11 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
-									good_actions++;
+									if (!stop_counting_actions)
+									{
+										good_actions++;
+										stop_counting_actions = true;
+									}
 								}
 								if (object_type == 5 || object_type == 6)
 								{
@@ -150,7 +162,11 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
-									evil_actions++;
+									if (!stop_counting_actions)
+									{
+										evil_actions++;
+										stop_counting_actions = true;
+									}
 								}
 								if (object_type == 2)
 								{
@@ -160,7 +176,11 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
-									good_actions++;
+									if (!stop_counting_actions)
+									{
+										good_actions++;
+										stop_counting_actions = true;
+									}
 								}
 								if (object_type == 3)
 								{
@@ -170,7 +190,11 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
-									good_actions++;
+									if (!stop_counting_actions)
+									{
+										good_actions++;
+										stop_counting_actions = true;
+									}
 								}
 								if (object_type == 4)
 								{
@@ -180,7 +204,11 @@ int main()
 									action.setPosition(action_pos);
 									show_object = false;
 									maximal_step++;
-									evil_actions++;
+									if (!stop_counting_actions)
+									{
+										evil_actions++;
+										stop_counting_actions = true;
+									}
 								}
 								if (object_type == 5 || object_type == 6)
 								{
@@ -252,6 +280,7 @@ int main()
 						if (!Keyboard::isKeyPressed(Keyboard::Space))
 						{
 							stop = false;
+							stop_counting_actions = false;
 						}
 
 
